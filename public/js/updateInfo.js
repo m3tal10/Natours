@@ -2,14 +2,13 @@
 import '@babel/polyfill';
 import axios from 'axios';
 import { showAlert } from './alert';
-import { logOut } from './login';
 
 export const updateMe = async (data, type) => {
   try {
     const url =
       type === 'password'
-        ? 'http://localhost:8000/api/v1/users/changePassword'
-        : 'http://localhost:8000/api/v1/users/user';
+        ? '/api/v1/users/changePassword'
+        : '/api/v1/users/user';
     const res = await axios({
       method: 'PATCH',
       url,
