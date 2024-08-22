@@ -7,17 +7,6 @@ const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
 
-const cookieOptions = {
-  expires: new Date(
-    Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
-  ),
-  httpOnly: true,
-};
-
-if (process.env.NODE_ENV === 'production') {
-  cookieOptions.secure = true;
-}
-
 //JWT Sign
 const jwtSign = (payload) =>
   jwt.sign({ id: payload }, process.env.JWT_SECRET, {
@@ -29,8 +18,17 @@ const jwtVerify = async (token) =>
   await promisify(jwt.verify)(token, process.env.JWT_SECRET);
 
 //create and send JWToken
-const createAndSendJWT = (user, status, res) => {
+const createAndSendJWT = (user, status, req, res) => {
   const token = jwtSign(user._id);
+  console.log(req.secure, req.headers['x-forwarded-proto']);
+
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+    ),
+    httpOnly: true,
+    secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+  };
 
   //removes the password from the output
   user.password = undefined;
@@ -46,7 +44,7 @@ const createAndSendJWT = (user, status, res) => {
 
 exports.signUp = catchAsync(async (req, res, next) => {
   const newUser = await User.create({ ...req.body, role: 'user' });
-  createAndSendJWT(newUser, 201, res);
+  createAndSendJWT(newUser, 201, req, res);
   const url = `${req.protocol}://${req.get('host')}/me`;
   await new Email(newUser, url).sendWelcome();
 });
@@ -65,7 +63,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
   }
 
   //if everything is correct the send the token to the client
-  createAndSendJWT(user, 200, res);
+  createAndSendJWT(user, 200, req, res);
 });
 
 exports.logOut = (req, res) => {
@@ -237,5 +235,5 @@ exports.changePassword = catchAsync(async (req, res, next) => {
   await currentUser.save();
 
   //log in user again after successfully updating the password.
-  createAndSendJWT(currentUser, 200, res);
+  createAndSendJWT(currentUser, 200, req, res);
 });
