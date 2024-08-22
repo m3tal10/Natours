@@ -5,6 +5,8 @@ const { authenticate, authorize } = require('../controllers/authController');
 const router = express.Router();
 router.use(authenticate);
 
+router.route('/checkout-session/:id').get(bookingController.getCheckoutSession);
+
 //Only allow admins and lead-guides to manage bookings
 
 router.use(authorize('admin', 'lead-guide'));
