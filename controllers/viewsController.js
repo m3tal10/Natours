@@ -38,6 +38,12 @@ exports.signUpView = (req, res, next) => {
   });
 };
 
+exports.forgotPasswordView = (req, res, next) => {
+  res.status(200).render('forgotpassword', {
+    title: 'Forgot Password',
+  });
+};
+
 exports.getMe = async (req, res, next) => {
   res.status(200).render('dashboard', {
     title: 'Dashboard',

@@ -20,8 +20,6 @@ const jwtVerify = async (token) =>
 //create and send JWToken
 const createAndSendJWT = (user, status, req, res) => {
   const token = jwtSign(user._id);
-  console.log(req.secure, req.headers['x-forwarded-proto']);
-
   const cookieOptions = {
     expires: new Date(
       Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
@@ -172,7 +170,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   try {
     await new Email(user, resetURL).sendPasswordReset();
     res.status(200).json({
-      status: 'Success',
+      status: 'success',
       message: 'Token sent to email.',
     });
   } catch (err) {

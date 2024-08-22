@@ -10,5 +10,6 @@ router.get('/my-bookings', authenticate, viewsController.getBookings);
 router.get('/tour/:slug', isLoggedIn, viewsController.getTourView);
 router.get('/login', isLoggedIn, viewsController.loginView);
 router.get('/signup', viewsController.signUpView);
+router.get('/forgot-password', viewsController.forgotPasswordView);
 
 module.exports = router;

@@ -4,6 +4,7 @@ import { updateMe } from './updateInfo';
 import { displayMap } from './mapbox';
 import { bookTour } from './stripe';
 import { signup } from './signup';
+import { forgotPassword } from './forgotPassword';
 
 //DOM elements
 const mapBox = document.getElementById('map');
@@ -13,6 +14,7 @@ const logOutButton = document.querySelector('.nav__el--logout');
 const updateUserInfoBtn = document.querySelector('.save--info');
 const updateUserPassword = document.querySelector('.update--password');
 const bookBtn = document.getElementById('book-tour');
+const forgotPasswordBtn = document.getElementById('forgotpass');
 //VALUES
 
 //DELEGATION
@@ -87,5 +89,18 @@ if (bookBtn) {
     bookBtn.disabled = true;
     const { tourId } = e.target.dataset;
     bookTour(tourId);
+  });
+}
+
+if (forgotPasswordBtn) {
+  forgotPasswordBtn.addEventListener('click', async (e) => {
+    e.target.textContent = 'Processing...';
+    forgotPasswordBtn.disabled = true;
+    const email = document.getElementById('resetemail').value;
+    console.log(email);
+
+    await forgotPassword(email);
+    forgotPasswordBtn.disabled = false;
+    e.target.textContent = 'continue';
   });
 }
