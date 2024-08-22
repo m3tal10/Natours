@@ -11,7 +11,10 @@ export const forgotPassword = async (email) => {
       },
     });
     if (res.data.status === 'success') {
-      showAlert('success', res.data.message);
+      showAlert(
+        'success',
+        `${res.data.message} Please check your email for further instructions.`,
+      );
     }
   } catch (err) {
     showAlert('error', err.response.data.message);

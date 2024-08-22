@@ -166,7 +166,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   await user.save({ validateBeforeSave: false });
 
   //send it back as an email
-  const resetURL = `${req.protocol}://${req.get('host')}/api/v1/users/resetPassword/${resetToken}`;
+  const resetURL = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
   try {
     await new Email(user, resetURL).sendPasswordReset();
     res.status(200).json({
@@ -209,7 +209,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   await user.save();
   const JWT = jwtSign(user._id);
   res.status(200).json({
-    status: 'Success',
+    status: 'success',
     token: JWT,
   });
 });

@@ -44,6 +44,12 @@ exports.forgotPasswordView = (req, res, next) => {
   });
 };
 
+exports.resetPasswordView = (req, res, next) => {
+  res.status(200).render('resetpassword', {
+    title: 'Reset Password',
+  });
+};
+
 exports.getMe = async (req, res, next) => {
   res.status(200).render('dashboard', {
     title: 'Dashboard',
