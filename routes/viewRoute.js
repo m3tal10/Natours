@@ -3,6 +3,7 @@ const viewsController = require('../controllers/viewsController');
 const { authenticate, isLoggedIn } = require('../controllers/authController');
 
 const router = express.Router();
+router.use(viewsController.alert);
 router.get('/', isLoggedIn, viewsController.getOverview);
 router.get('/me', authenticate, viewsController.getMe);
 router.get('/my-bookings', authenticate, viewsController.getBookings);

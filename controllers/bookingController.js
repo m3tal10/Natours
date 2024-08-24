@@ -27,7 +27,9 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
           product_data: {
             name: `${tour.name.toUpperCase()} TOUR`,
             description: tour.summary,
-            images: [`https://www.natours.dev/img/tours/${tour.imageCover}`],
+            images: [
+              `${req.protocol}://${req.get('host')}/img/tours/${tour.imageCover}`,
+            ],
           },
           unit_amount: tour.price * 100,
         },
@@ -35,11 +37,13 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
       },
     ],
     mode: 'payment',
-    success_url: `${req.protocol}://${req.get('host')}/`,
+    success_url: `${req.protocol}://${req.get('host')}/my-bookings?alert=booking`,
     cancel_url: `${req.protocol}://${req.get('host')}/tour/${tour.slug}`,
     customer_email: req.user.email,
     client_reference_id: req.params.id,
   });
+  console.log(session);
+
   //03. Send the session as response
   res.status(200).json({
     status: 'success',
@@ -58,6 +62,7 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
 //   });
 //   res.redirect(req.originalUrl.split('?')[0]);
 // });
+
 const createBookingCheckout = async (session, req, res) => {
   const tour = session.client_reference_id;
   const user = await User.findOne({ email: session.customer_email });

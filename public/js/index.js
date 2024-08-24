@@ -6,6 +6,7 @@ import { bookTour } from './stripe';
 import { signup } from './signup';
 import { forgotPassword } from './forgotPassword';
 import { resetPassword } from './resetPassword';
+import { showAlert } from './alert';
 
 //DOM elements
 const mapBox = document.getElementById('map');
@@ -120,4 +121,11 @@ if (resetPasswordBtn) {
     resetPasswordBtn.disabled = false;
     e.target.textContent = 'continue';
   });
+}
+
+const alertMessage = document.querySelector('body').dataset.alert;
+
+if (alertMessage) {
+  console.log('hii');
+  showAlert('success', alertMessage);
 }
