@@ -32,7 +32,5 @@ Live Website link: https://natours-4t3b.onrender.com/
 
 API documentation link: https://documenter.getpostman.com/view/36963920/2sAXjF9aYh
 
-Github: https://github.com/m3tal10/Natours
-
 Please feel free to give any feedback. If you are experienced with backend technologies then kindly check my API documentation.
 Your feedback is well Appreciated.
