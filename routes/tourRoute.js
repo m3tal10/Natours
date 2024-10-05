@@ -41,6 +41,7 @@ router
     tourController.deleteTour,
   );
 
+//Statistics based
 router.route('/stats/tour-stats').get(tourController.getTourStats);
 router
   .route('/stats/monthly-plan/:year')

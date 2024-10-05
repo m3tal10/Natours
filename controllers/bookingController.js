@@ -42,7 +42,6 @@ exports.getCheckoutSession = catchAsync(async (req, res, next) => {
     customer_email: req.user.email,
     client_reference_id: req.params.id,
   });
-  console.log(session);
 
   //03. Send the session as response
   res.status(200).json({
