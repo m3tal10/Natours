@@ -1,4 +1,7 @@
 # Natours Application
+Live Website link: https://natours-m3tal10.vercel.app/
+
+API documentation link: https://documenter.getpostman.com/view/36963920/2sAXjF9aYh
 
 Built using modern backend technologies: node.js, express, mongoDB, mongoose, and friends.
 
@@ -27,10 +30,6 @@ Notes:
 * The front-end website might take a minute to render for the first time because of the limitation of the hosting platform.
 * Use a VPN if the Stripe checkout page does not load. (This happens sometimes because of Stripe.)
 
-
-Live Website link: https://natours-4t3b.onrender.com/
-
-API documentation link: https://documenter.getpostman.com/view/36963920/2sAXjF9aYh
 
 Please feel free to give any feedback. If you are experienced with backend technologies then kindly check my API documentation.
 Your feedback is well Appreciated.
